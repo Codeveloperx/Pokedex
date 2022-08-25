@@ -6,22 +6,19 @@ export const actionRegister = (nombre, email, pass) => {
 
   return async(dispatch) => {
     try{
-      const userCredential = await createUserWithEmailAndPassword(auth, email, pass)
+      await createUserWithEmailAndPassword(auth, email, pass)
       await updateProfile(auth.currentUser, {displayName: nombre})
 
-      dispatch(actionRegisterSync(nombre, email, pass))
-          // Signed in
-          const user = userCredential.user;
-          console.log(user)
+      await dispatch(actionRegisterSync(nombre, email, pass))
         }
         catch (error) {
           const errorMessage = error.message;
-          console.log(errorMessage)
+          // console.log(errorMessage)
         }
     }
 }
 
-export const actionRegisterSync = (nombre, email, pass) => {
+const actionRegisterSync = (nombre, email, pass) => {
     return{
         type: REGISTER,
         payload: {nombre, email, pass}

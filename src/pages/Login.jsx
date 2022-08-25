@@ -5,8 +5,27 @@ import Pokeball from '../assets/pokeball.svg'
 import Facebook from '../assets/facebook.svg'
 import Google from '../assets/google.svg'
 import { Link } from 'react-router-dom'
+import {useForm} from '../hooks/useForm'
+import { useDispatch } from 'react-redux'
+import { actionLogin } from '../redux/actions/actionLogin'
+
 
 const Login = () => {
+
+  const dispatch = useDispatch()
+  const [dataForm, handleChange, reset] = useForm({
+    email: '',
+    password: ''
+  })
+
+  const {email, password} = dataForm
+  
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    await dispatch(actionLogin(email, password))
+    reset()
+  }
+
   return (
     <Container Width Height flex centrarContenido='center' CentrarItems='center' className='md:gap-20'>
       <article>
@@ -19,13 +38,17 @@ const Login = () => {
         <figure className=' flex justify-center items-center mb-10'>
           <img src={Pokeball} alt="pokeball logo" width='100' />
         </figure>
-        <form>
+
+        <form onSubmit={handleSubmit}>
           {/* Email input  */}
           <div className="mb-6">
             <input
               type="text"
               className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Email address"
+              value={dataForm.email}
+              name='email'
+              onChange={handleChange}
             />
           </div>
 
@@ -35,6 +58,9 @@ const Login = () => {
               type="password"
               className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               placeholder="Password"
+              value={dataForm.password}
+              name='password'
+              onChange={handleChange}
             />
           </div>
 
