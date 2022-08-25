@@ -49,6 +49,7 @@ const Login = () => {
               value={dataForm.email}
               name='email'
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -61,6 +62,7 @@ const Login = () => {
               value={dataForm.password}
               name='password'
               onChange={handleChange}
+              required
             />
           </div>
 

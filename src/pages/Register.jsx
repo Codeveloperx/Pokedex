@@ -48,6 +48,7 @@ const Register = () => {
               name='nombre'
               value={dataForm.nombre}
               onChange={handleChange}
+              required
             />
           </div>
 
@@ -60,6 +61,7 @@ const Register = () => {
               name='email'
               value={dataForm.email}
               onChange={handleChange}
+              required
             />
           </div>
 

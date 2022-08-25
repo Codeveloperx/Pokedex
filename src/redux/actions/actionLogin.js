@@ -1,4 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import Swal from 'sweetalert2';
 import {auth} from '../../firebase/firebaseConfig'
 import { LOGIN } from '../types/types';
 
@@ -12,11 +13,17 @@ export const actionLogin = (email, password) => {
       );
       const user = userCredential.user;
       await dispatch(actionLoginSync(user))
+      console.log(user)
       // Signed in
 
     } catch (error) {
       const errorMessage = error.message;
-      console.log(errorMessage)
+      // Alerta por si sucede algun error
+      Swal.fire({
+        title: 'Error!',
+        text: `${errorMessage}`,
+        icon: 'error'
+      })
     }
   };
 };
