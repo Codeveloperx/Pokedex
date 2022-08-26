@@ -7,7 +7,7 @@ import Google from '../assets/google.svg'
 import { Link, useNavigate } from 'react-router-dom'
 import {useForm} from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { actionLogin, loginGoogle } from '../redux/actions/actionLogin'
+import { actionLogin, loginFacebook, loginGoogle } from '../redux/actions/actionLogin'
 
 
 const Login = () => {
@@ -30,6 +30,11 @@ const Login = () => {
 
   const signWithGoogle = async() => {
     await dispatch(loginGoogle())
+    navigate('/home')
+  }
+
+  const signWithFacebook = async() => {
+    await dispatch(loginFacebook())
     navigate('/home')
   }
 
@@ -95,7 +100,7 @@ const Login = () => {
 
           <div className='flex justify-center items-center gap-5'>
             {/* <!-- Facebook --> */}
-          <button>
+          <button onClick={signWithFacebook}>
             <img src={Facebook} alt="logo Facebook" width='30' />
           </button>
 
