@@ -4,15 +4,16 @@ import Poster from '../assets/ashPoster.png'
 import Pokeball from '../assets/pokeball.svg'
 import Facebook from '../assets/facebook.svg'
 import Google from '../assets/google.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useForm} from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { actionLogin } from '../redux/actions/actionLogin'
+import { actionLogin, loginGoogle } from '../redux/actions/actionLogin'
 
 
 const Login = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [dataForm, handleChange, reset] = useForm({
     email: '',
     password: ''
@@ -23,7 +24,13 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     await dispatch(actionLogin(email, password))
+    navigate('/home')
     reset()
+  }
+
+  const signWithGoogle = async() => {
+    await dispatch(loginGoogle())
+    navigate('/home')
   }
 
   return (
@@ -84,6 +91,7 @@ const Login = () => {
             className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
             <p className="text-center font-semibold mx-4 mb-0">OR</p>
           </div>
+        </form>
 
           <div className='flex justify-center items-center gap-5'>
             {/* <!-- Facebook --> */}
@@ -92,7 +100,7 @@ const Login = () => {
           </button>
 
             {/* <!-- Google --> */}
-          <button>
+          <button onClick={signWithGoogle}>
             <img src={Google} alt="logo google" width='30' />
           </button>
           </div>
@@ -103,7 +111,6 @@ const Login = () => {
                 > Register
                 </Link>
             </p>
-        </form>
       </article>
     </Container>
   )
