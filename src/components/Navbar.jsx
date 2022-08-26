@@ -56,6 +56,12 @@ const NavbarC = () => {
       Home
     </Navbar.Link>
 
+    <Navbar.Link
+      href="/#"
+    >
+      Favourites
+    </Navbar.Link>
+
   </Navbar.Collapse>
 </Navbar>
     </>
