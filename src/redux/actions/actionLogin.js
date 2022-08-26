@@ -1,6 +1,6 @@
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import Swal from 'sweetalert2';
-import {auth} from '../../firebase/firebaseConfig'
+import {auth, providerGoogle} from '../../firebase/firebaseConfig'
 import { LOGIN } from '../types/types';
 
 export const actionLogin = (email, password) => {
@@ -33,4 +33,26 @@ const actionLoginSync = (user) => {
         type: LOGIN,
         payload: user
     }
+}
+
+
+// Login con Google
+export const loginGoogle = () => {
+  return async(dispatch) =>{
+    try{
+      const result = await signInWithPopup(auth, providerGoogle)
+      const user = result.user;
+      dispatch(actionLoginSync(user))
+    }catch(error){
+      const errorMessage = error.message;
+      // Alerta en caso de error!
+      Swal.fire({
+        title: 'Error!',
+        text: `${errorMessage}`,
+        icon: 'error'
+      })
+
+
+    }
+  }
 }
