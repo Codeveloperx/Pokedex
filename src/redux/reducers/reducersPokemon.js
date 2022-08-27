@@ -1,4 +1,4 @@
-import { ABILITIES, ERROR, FAVORITES, POKEMONS } from '../types/types'
+import { ABILITIES, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types'
 
 const initialState = {
     pokemons: [],
