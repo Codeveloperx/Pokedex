@@ -1,18 +1,15 @@
 import React from 'react'
 import {Navbar, Dropdown, Avatar} from 'flowbite-react'
-import {useSelector} from 'react-redux'
 import avatarDefault from '../assets/avatardefault.png'
 import Logo from '../assets/pokelogo.png'
 import { useDispatch } from 'react-redux'
-import { logoutSync } from '../redux/actions/actionLogin'
-const NavbarC = () => {
+import { actionLogoutAsyn } from '../redux/actions/actionLogin'
+const NavbarC = ({isActive}) => {
 
-    const user = useSelector(store => store.storeLogin)
     const dispatch = useDispatch();
 
-
     const logout = () =>{
-      dispatch(logoutSync())
+      dispatch(actionLogoutAsyn())
     }
 
   return (
@@ -20,7 +17,7 @@ const NavbarC = () => {
     <Navbar
   fluid={true}
 >
-  <Navbar.Brand href="#">
+  <Navbar.Brand>
     <img
       src={Logo}
       className="mr-3 h-6 sm:h-9"
@@ -33,15 +30,15 @@ const NavbarC = () => {
       arrowIcon={false}
       inline={true}
       label={<Avatar alt="User settings"
-      img={user.photoURL || avatarDefault }
+      img={isActive.photoURL || avatarDefault }
       rounded={true}/>}
     >
       <Dropdown.Header>
         <span className="block text-sm">
-          {user.displayName}
+          {isActive.displayName}
         </span>
         <span className="block truncate text-sm font-medium">
-          {user.email}
+          {isActive.email}
         </span>
       </Dropdown.Header>
       <Dropdown.Item>
@@ -56,14 +53,13 @@ const NavbarC = () => {
   </div>
   <Navbar.Collapse>
     <Navbar.Link
-      href="/navbars"
+      href="/home"
       active={true}
     >
       Home
     </Navbar.Link>
 
     <Navbar.Link
-      href="/#"
     >
       Favourites
     </Navbar.Link>

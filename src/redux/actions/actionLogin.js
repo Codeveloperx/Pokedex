@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import {auth, providerFacebook, providerGoogle} from '../../firebase/firebaseConfig'
 import { LOGIN, LOGOUT } from '../types/types';

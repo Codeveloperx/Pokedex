@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from '../styles/main'
 import Poster from '../assets/Pokemon.png'
 import Pokeball from '../assets/pokeball.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from '../hooks/useForm'
 import { useDispatch } from 'react-redux'
 import { actionRegister } from '../redux/actions/actionRegister'
@@ -11,6 +11,7 @@ import { actionRegister } from '../redux/actions/actionRegister'
 const Register = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [dataForm, handleChange, reset] = useForm({
     nombre: '',
@@ -23,6 +24,7 @@ const Register = () => {
     e.preventDefault();
     await dispatch(actionRegister(nombre, email, password))
     reset()
+    navigate('/home');
   }
 
   return (
