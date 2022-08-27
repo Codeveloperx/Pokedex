@@ -1,6 +1,6 @@
 import {getPokemonsAPI, MapEvolutions} from '../../services/helpers'
 import dataPokemons from '../../services/urls';
-import { ABILITIES, POKEMONS, SELECTPOKEMON } from '../types/types';
+import { ABILITIES, CLEARSEARCH, POKEMONS, SELECTPOKEMON } from '../types/types';
 
 export const actionPokemonsAsync = () => {
     return async (dispatch) => {
@@ -69,11 +69,15 @@ export const fillAbilitiesSync = (params) => {
 }
 
 
-export const selectPokemon = (params) => {
+export const selectPokemon = (nombre) => {
   return {
     type: SELECTPOKEMON,
-    payload: {
-      name: params.name
-    }
+    payload: nombre
+  }
+}
+
+export const clearSearch = () => {
+  return {
+    type: CLEARSEARCH
   }
 }
