@@ -19,8 +19,8 @@ const PokemonList = () => {
 
   if(loading){
     return(
-      <Container flex centrarContenido='center' CentrarItems='center'>
-        <Spinner
+      <Container flex centrarContenido='center' CentrarItems='center' className='mt-[10rem]'>
+        <Spinner 
           aria-label="Extra large spinner example"
           size="xl"
         />

@@ -1,16 +1,20 @@
 import { Container } from "../styles/main";
 import React from "react";
 import { useForm } from "../hooks/useForm";
+import { useDispatch } from "react-redux";
+// import { selectPokemon } from "../redux/actions/actionPokemons";
+
 
 const Search = () => {
 
     const [dataForm, handleChange, reset] = useForm({
         search: ''
     })
-
+    const dispatch = useDispatch();
+    const {search} = dataForm
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(dataForm.search)
+        // dispatch(selectPokemon({search}))
         reset()
     }
   return (
