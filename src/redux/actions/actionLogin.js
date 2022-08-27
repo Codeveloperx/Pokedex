@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import Swal from 'sweetalert2';
 import {auth, providerFacebook, providerGoogle} from '../../firebase/firebaseConfig'
-import { LOGIN } from '../types/types';
+import { LOGIN, LOGOUT } from '../types/types';
 
 export const actionLogin = (email, password) => {
   return async (dispatch) => {
@@ -72,5 +72,29 @@ export const loginFacebook = () => {
         icon: 'error'
       })
     }
+  }
+}
+
+
+export const actionLogoutAsyn = ()=>{
+  return (dispatch)=>{
+      signOut(auth)
+      .then(()=>{
+          dispatch(logoutSync())
+      })
+      .catch((error)=>{
+        const {message} = error
+        Swal.fire({
+          title: 'Error!',
+          text: `${message}`,
+          icon: 'error'
+        })
+      });
+  }
+}
+
+export const logoutSync = () => {
+  return{
+    type:LOGOUT
   }
 }

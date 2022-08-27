@@ -3,10 +3,18 @@ import {Navbar, Dropdown, Avatar} from 'flowbite-react'
 import {useSelector} from 'react-redux'
 import avatarDefault from '../assets/avatardefault.png'
 import Logo from '../assets/pokelogo.png'
-
+import { useDispatch } from 'react-redux'
+import { logoutSync } from '../redux/actions/actionLogin'
 const NavbarC = () => {
 
     const user = useSelector(store => store.storeLogin)
+    const dispatch = useDispatch();
+
+
+    const logout = () =>{
+      dispatch(logoutSync())
+    }
+
   return (
     <>
     <Navbar
@@ -40,7 +48,7 @@ const NavbarC = () => {
         Settings
       </Dropdown.Item>
       <Dropdown.Divider />
-      <Dropdown.Item>
+      <Dropdown.Item onClick={logout}>
         Sign out
       </Dropdown.Item>
     </Dropdown>
