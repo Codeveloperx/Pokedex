@@ -67,3 +67,13 @@ export const fillAbilitiesSync = (params) => {
     }
   }
 }
+
+
+export const selectPokemon = (params) => {
+  return {
+    type: SELECTPOKEMON,
+    payload: {
+      name: params.name
+    }
+  }
+}

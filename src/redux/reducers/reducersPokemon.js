@@ -19,6 +19,11 @@ export const reducerPokemons = (state = initialState, action) => {
                 ...state,
                 favorites: [...action.payload.results],
             };
+        case SELECTPOKEMON:
+            return{
+                ...state,
+                selected: state.pokemons.filter(pkm = pkm.name === action.payload.name)
+            };
         case ABILITIES:
             return{
                 ...state,
