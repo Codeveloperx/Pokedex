@@ -1,10 +1,10 @@
-import { ABILITIES, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types'
+import { ABILITIES, CLEARSEARCH, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types'
 
 const initialState = {
     pokemons: [],
     favorites: [],
     abilities: [],
-    selected:[]
+    selected:[],
 }
 
 export const reducerPokemons = (state = initialState, action) => {
@@ -22,7 +22,12 @@ export const reducerPokemons = (state = initialState, action) => {
         case SELECTPOKEMON:
             return{
                 ...state,
-                selected: state.pokemons.filter(pkm = pkm.name === action.payload.name)
+                selected: state.pokemons.filter(p => p.name === action.payload)
+            };
+        case CLEARSEARCH:
+            return{
+                ...state,
+                selected:[]
             };
         case ABILITIES:
             return{

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card } from "flowbite-react";
 import { Container } from "../styles/main";
 import { useNavigate} from 'react-router-dom'
+
 
 const PokemonCard = ({datos}) => {
   const navigate = useNavigate();

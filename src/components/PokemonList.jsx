@@ -6,7 +6,7 @@ import {Spinner} from 'flowbite-react'
 import { Container } from '../styles/main'
 
 const PokemonList = () => {
-  const {pokemons} = useSelector((store) => store.storePokemons);
+  const {pokemons, selected} = useSelector((store) => store.storePokemons);
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
 
@@ -29,13 +29,25 @@ const PokemonList = () => {
     )
   }
 
+  const renderCards = (pokemonSelect, list) => {
+    let items = list;
+    if (pokemonSelect && pokemonSelect.length) {
+      items = pokemonSelect;
+    }
+
+    return items && items.length ? (
+      items.map((item, index) => (     
+        <PokemonCard key={index} datos={item}/>
+      ))
+  ):
+  <div className='m-auto mt-[8rem]'>
+    <h1>NOT FOUND</h1>
+    </div>
+}
   return (
     <div className='flex gap-5 flex-wrap px-5'>
-        {
-            pokemons.map((pokemon) => {
-                return <PokemonCard key={pokemon.id} datos={pokemon}/>
-            })
-        }
+
+      {renderCards(selected, pokemons)}
     </div>
   )
 }
