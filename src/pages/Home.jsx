@@ -4,11 +4,11 @@ import NavbarC from '../components/Navbar'
 import Search from '../components/Search'
 import PokemonList from '../components/PokemonList'
 
-const Home = () => {
+const Home = ({userActive}) => {
 
   return (
     <Container className='w-[100%]'>
-    <NavbarC/>
+    <NavbarC isActive={userActive}/>
     <Search/>
     <PokemonList />
 
