@@ -1,4 +1,4 @@
-import { ABILITIES, CLEARSEARCH, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types'
+import { ABILITIES, ADDPOKEMON, CLEARSEARCH, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types'
 
 const initialState = {
     pokemons: [],
@@ -19,6 +19,11 @@ export const reducerPokemons = (state = initialState, action) => {
                 ...state,
                 favorites: [...action.payload.results],
             };
+        case ADDPOKEMON:
+            return{
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            }
         case SELECTPOKEMON:
             return{
                 ...state,
