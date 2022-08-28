@@ -40,8 +40,9 @@ const PokemonCard = ({datos}) => {
               #0{datos.id}
             </span>
             <div className="mt-4 flex space-x-3 lg:mt-6 text-black">
-              <span className="inline-flex items-center py-2 px-2 text-center text-sm font-medium">Fire</span>
-              <span className="inline-flex items-center py-2 px-2 text-center text-sm font-medium">Magic</span>
+            {datos.types.map((item, idx)=>{            
+                    return <span key={idx} className="inline-flex items-center py-2 px-2 text-center text-sm font-medium">{item.type.name}</span>
+                })}
             </div>
           </div>
         </Card>
