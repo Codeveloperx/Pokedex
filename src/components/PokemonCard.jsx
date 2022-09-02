@@ -14,6 +14,7 @@ const PokemonCard = ({datos}) => {
   const handleFavorites = (pokemonId) => {
     const dataPokemon = pokemons.find((pkm) => pkm.id === pokemonId);
     dispatch(addPokemonAsync(dataPokemon));
+    console.log(dataPokemon)
   };
   
   return (

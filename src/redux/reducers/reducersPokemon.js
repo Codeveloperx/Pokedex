@@ -23,7 +23,7 @@ export const reducerPokemons = (state = initialState, action) => {
             return{
                 ...state,
                 favorites: [...state.favorites, action.payload]
-            }
+            };
         case SELECTPOKEMON:
             return{
                 ...state,

@@ -84,71 +84,78 @@ export const clearSearch = () => {
   }
 }
 
-export const actionFavoriteAsync = () =>{
+export const fillFavoritesAsync = () => {
   return (dispatch) => {
-    const collectionPokemon = collection(db, 'pokemons')
-    const querySnapshot = query(collectionPokemon);
-    
+    const collectionUsers = collection(db, "pokemons");
+    const querySnapshot = query(collectionUsers);
     getDocs(querySnapshot)
-    .then((documents) =>{
-      const details = [];
-      documents.forEach((document) => {
-        details.push({
-          firestoreId: document.id,
-          ...document.data(),
+      .then((documents) => {
+        const details = [];
+        documents.forEach((document) => {
+          details.push({
+            firestoreId: document.id,
+            ...document.data(),
+          });
         });
+
+        dispatch(
+          fillFavoritesSync({
+            data: {
+              results: details,
+            },
+            error: false,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(fillFavoritesSync({ error: true }));
       });
-      dispatch(
-        actionFavoriteSync({
-          data: {
-            results: defaults,
-          },
-          error: false,
-        })
-      )
-
-    })
-    .catch((error) =>{
-      dispatch(actionFavoriteSync({error: true}))
-    })
-  }
-}
+  };
+};
 
 
 
-export const actionFavoriteSync = () => {
+export const fillFavoritesSync = ({ data, error }) => {
   return {
     type: FAVORITES,
     payload: {
       results: data.results,
-      error
-    }
-  }
-}
+      error,
+    },
+  };
+};
 
 
-export const addPokemonAsync = (pokemon) =>{
-  return (dispatch) =>{
-    addDoc(collection(db, 'pokemons', pokemon))
-    .then((docRef) =>{
-      dispatch(addPokemonSync({
-        pokemon: {
-          firestoreId: docRef.id,
-          ...pokemon
-        }
+export const addPokemonAsync = (pokemon) => {
+  return (dispatch) => {
+    addDoc(collection(db, "pokemons"), pokemon)
+      .then((docRef) => {
+        dispatch(
+          addPokemonSync({
+            pokemon: {
+              firestoreId: docRef.id,
+              ...pokemon,
+            },
+          })
+        );
+
+        dispatch(errorSync({ error: false }));
       })
-      )
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-  }
+      .catch((error) => {
+        console.log(error);
+        dispatch(
+          errorSync({
+            error: true,
+          })
+        );
+      });
+  };
+};
 
-}
-
-export const addPokemonSync = (data) => {
+export const addPokemonSync = (params) => {
   return {
     type: ADDPOKEMON,
-    payload: data.pokemon
-  }
-}
+    payload: params.pokemon,
+  };
+};

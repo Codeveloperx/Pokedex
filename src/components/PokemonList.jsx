@@ -13,9 +13,9 @@ const PokemonList = () => {
   useEffect(() => {
     if(!pokemons || pokemons.length === 0) {
       dispatch(actionPokemonsAsync());
-      setLoading(false)
     }
-  }, [pokemons, dispatch])
+    setLoading(false)
+  }, [pokemons, dispatch, loading])
 
   if(loading){
     return(
@@ -40,9 +40,10 @@ const PokemonList = () => {
         <PokemonCard key={index} datos={item}/>
       ))
   ):
-  <div className='m-auto mt-[8rem]'>
-    <h1>NOT FOUND</h1>
-    </div>
+  <div className='m-auto mt-[8rem] flex flex-col gap-2 items-center'>
+      <Spinner aria-label="Extra large spinner example" size="xl"/>
+      <span>Cargando...</span>
+  </div>
 }
   return (
     <div className='flex gap-5 flex-wrap px-5'>
