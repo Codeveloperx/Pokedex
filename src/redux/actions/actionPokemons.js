@@ -3,6 +3,7 @@ import dataPokemons from '../../services/urls';
 import { ABILITIES, ADDPOKEMON, CLEARSEARCH, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types';
 import {db} from '../../firebase/firebaseConfig'
 import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import Swal from 'sweetalert2';
 
 export const actionPokemonsAsync = () => {
     return async (dispatch) => {
@@ -140,15 +141,18 @@ export const addPokemonAsync = (pokemon) => {
           })
         );
 
-        dispatch(errorSync({ error: false }));
+        Swal.fire({
+          icon: 'success',
+          title: 'Congratulations',
+          text: 'Add to favorites!'
+        })
       })
       .catch((error) => {
-        console.log(error);
-        dispatch(
-          errorSync({
-            error: true,
-          })
-        );
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.message}`
+        })
       });
   };
 };
