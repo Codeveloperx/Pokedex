@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fillFavoritesAsync } from '../redux/actions/actionPokemons'
 import { Spinner } from 'flowbite-react'
 import CardFavorite from '../components/CardFavorite'
+import Logo from '../assets/logo.svg'
 
 const Favorite = () => {
     const {favorites, selected} = useSelector((store) => store.storePokemons);
@@ -46,9 +47,14 @@ const Favorite = () => {
   </div>
 }
   return (
+      <div className='flex justify-center flex-col items-center mt-10'>
+        <figure>
+          <img src={Logo} alt="" />
+        </figure>
     <div className='flex gap-5 flex-wrap px-5'>
 
       {renderCards(selected, favorites)}
+    </div>
     </div>
   )
 }

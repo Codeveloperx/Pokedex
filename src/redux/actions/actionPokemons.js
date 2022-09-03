@@ -1,8 +1,8 @@
 import {getPokemonsAPI, MapEvolutions} from '../../services/helpers'
 import dataPokemons from '../../services/urls';
-import { ABILITIES, ADDPOKEMON, CLEARSEARCH, FAVORITES, POKEMONS, SELECTPOKEMON, UPDATEPOKEMON } from '../types/types';
+import { ABILITIES, ADDPOKEMON, CLEARSEARCH, DELETEPOKEMON, FAVORITES, POKEMONS, SELECTPOKEMON, UPDATEPOKEMON } from '../types/types';
 import {db} from '../../firebase/firebaseConfig'
-import { addDoc, collection, doc, getDocs, query, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc } from 'firebase/firestore';
 import Swal from 'sweetalert2';
 
 export const actionPokemonsAsync = () => {
@@ -188,6 +188,32 @@ export const updatePokemonAsync = (item) => {
 
 }
 
+export const deletePokemonAsync = (pokemon) => {
+  return (dispatch) => {
+    deleteDoc(doc(db, 'pokemons', pokemon.id))
+    .then(()=> {
+      dispatch(deletePokemonSync({id: pokemon.id}))
+
+    })
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: `${error.message}`
+      })
+    })
+  }
+
+}
+
+export const deletePokemonSync = (pokemon) =>{
+  return{
+    type: DELETEPOKEMON,
+    payload: {
+      id: pokemon.id
+    }
+  }
+}
 
 export const updatePokemonSync = (pokemon) => {
   return {

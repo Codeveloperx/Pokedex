@@ -1,4 +1,4 @@
-import { ABILITIES, ADDPOKEMON, CLEARSEARCH, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON, UPDATEPOKEMON } from '../types/types'
+import { ABILITIES, ADDPOKEMON, CLEARSEARCH, DELETEPOKEMON, ERROR, FAVORITES, POKEMONS, SELECTPOKEMON, UPDATEPOKEMON } from '../types/types'
 
 const initialState = {
     pokemons: [],
@@ -35,6 +35,11 @@ export const reducerPokemons = (state = initialState, action) => {
                     }
                     return item;
                 })
+            };
+        case DELETEPOKEMON:
+            return{
+                ...state,
+                favorites: state.favorites.filter((favorite) => favorite.firestoreId !== action.payload.id)
             };
         case SELECTPOKEMON:
             return{

@@ -77,7 +77,6 @@ const DetallePokemon = () => {
       weight: parseInt(weight)
     }))
     
-
   }
   return (
     <>
