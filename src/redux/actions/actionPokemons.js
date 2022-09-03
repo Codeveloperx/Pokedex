@@ -1,8 +1,8 @@
 import {getPokemonsAPI, MapEvolutions} from '../../services/helpers'
 import dataPokemons from '../../services/urls';
-import { ABILITIES, ADDPOKEMON, CLEARSEARCH, FAVORITES, POKEMONS, SELECTPOKEMON } from '../types/types';
+import { ABILITIES, ADDPOKEMON, CLEARSEARCH, FAVORITES, POKEMONS, SELECTPOKEMON, UPDATEPOKEMON } from '../types/types';
 import {db} from '../../firebase/firebaseConfig'
-import { addDoc, collection, getDocs, query } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc } from 'firebase/firestore';
 import Swal from 'sweetalert2';
 
 export const actionPokemonsAsync = () => {
@@ -163,3 +163,40 @@ export const addPokemonSync = (params) => {
     payload: params.pokemon,
   };
 };
+
+export const updatePokemonAsync = (item) => {
+  return (dispatch) => {
+    const docRef = doc(db, 'pokemons', item.firestoreId);
+    updateDoc(docRef, item)
+      .then(resp => {
+        dispatch(updatePokemonSync({...item}))
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Congratulations',
+          text: 'Pokemon Edit!'
+        })
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${error.message}`
+        })
+      })    
+  }
+
+}
+
+
+export const updatePokemonSync = (pokemon) => {
+  return {
+    type: UPDATEPOKEMON,
+    payload: {
+      firestoreId: pokemon.firestoreId,
+      height: pokemon.height,
+      weight: pokemon.weight
+    }
+  }
+
+}
