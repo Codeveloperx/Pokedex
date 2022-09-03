@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import PokemonCard from './PokemonCard'
-import { useSelector, useDispatch} from 'react-redux'
-import {actionPokemonsAsync} from '../redux/actions/actionPokemons'
-import {Spinner} from 'flowbite-react'
 import { Container } from '../styles/main'
+import { useSelector, useDispatch } from 'react-redux'
+import { fillFavoritesAsync } from '../redux/actions/actionPokemons'
+import { Spinner } from 'flowbite-react'
+import CardFavorite from '../components/CardFavorite'
+import Logo from '../assets/logo.svg'
 
-const PokemonList = () => {
-  const {pokemons, selected} = useSelector((store) => store.storePokemons);
+const Favorite = () => {
+    const {favorites, selected} = useSelector((store) => store.storePokemons);
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if(!pokemons || pokemons.length === 0) {
-      dispatch(actionPokemonsAsync());
+    if(!favorites || favorites.length === 0) {
+      dispatch(fillFavoritesAsync());
     }
     setLoading(false)
-  }, [pokemons, dispatch, loading])
+  }, [favorites, dispatch, loading])
 
   if(loading){
     return(
@@ -37,7 +38,7 @@ const PokemonList = () => {
 
     return items && items.length ? (
       items.map((item, index) => (     
-        <PokemonCard key={index} datos={item}/>
+        <CardFavorite key={index} favorite={item}/>
       ))
   ):
   <div className='m-auto mt-[8rem] flex flex-col gap-2 items-center'>
@@ -46,11 +47,15 @@ const PokemonList = () => {
   </div>
 }
   return (
+      <div className='flex justify-center flex-col items-center mt-10'>
+        <figure>
+          <img src={Logo} alt="" />
+        </figure>
     <div className='flex gap-5 flex-wrap px-5'>
 
-      {renderCards(selected, pokemons)}
+      {renderCards(selected, favorites)}
+    </div>
     </div>
   )
 }
-
-export default PokemonList
+export default Favorite

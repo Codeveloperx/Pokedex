@@ -4,6 +4,7 @@ import avatarDefault from '../assets/avatardefault.png'
 import Logo from '../assets/pokelogo.png'
 import { useDispatch } from 'react-redux'
 import { actionLogoutAsyn } from '../redux/actions/actionLogin'
+
 const NavbarC = ({isActive}) => {
 
     const dispatch = useDispatch();
@@ -54,12 +55,12 @@ const NavbarC = ({isActive}) => {
   <Navbar.Collapse>
     <Navbar.Link
       href="/home"
-      active={true}
-    >
+      >
       Home
     </Navbar.Link>
 
     <Navbar.Link
+    href="/favorites"
     >
       Favourites
     </Navbar.Link>
