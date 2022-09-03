@@ -8,7 +8,7 @@ import { addPokemonAsync } from "../redux/actions/actionPokemons";
 
 const PokemonCard = ({datos}) => {
   const navigate = useNavigate();
-  const {pokemons,favorites} = useSelector((store)=> store.storePokemons)
+  const {pokemons} = useSelector((store)=> store.storePokemons)
   const dispatch = useDispatch()
 
   const handleFavorites = (pokemonId) => {

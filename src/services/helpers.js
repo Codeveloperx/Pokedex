@@ -1,23 +1,25 @@
 import axios from "axios";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
 
-// export const getPokemonByNameFromDatabase = (name) => {
-//     return new Promise((resolve, reject) => {
-//         try {
-//             const collectionUsers = collection(dataBase, "pokemons");
-//             const querySnapshot = query(collectionUsers, where("name", "==", name));
-//             getDocs(querySnapshot).then(documents => {
-//                 documents.forEach((document) => {
-//                     return resolve({
-//                         firestoreId: document.id,
-//                         ...document.data()
-//                     });
-//                 });
-//             })
-//         } catch (error) {
-//             return reject(error);
-//         }
-//     })
-// }
+export const getPokemonByNameFromDatabase = (name) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const collectionUsers = collection(db, "pokemons");
+            const querySnapshot = query(collectionUsers, where("name", "==", name));
+            getDocs(querySnapshot).then(documents => {
+                documents.forEach((document) => {
+                    return resolve({
+                        firestoreId: document.id,
+                        ...document.data()
+                    });
+                });
+            })
+        } catch (error) {
+            return reject(error);
+        }
+    })
+}
 
 
 export const getPokemonsAPI = (url) => {
